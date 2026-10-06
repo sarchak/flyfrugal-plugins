@@ -1,0 +1,13 @@
+{
+  "name": "flyfrugal",
+  "owner": { "name": "Fly Frugal", "url": "https://flyfrugal.fyi" },
+  "metadata": { "description": "Fly Frugal plugins for browsing cheap flight deals and budget travel itineraries." },
+  "plugins": [
+    {
+      "name": "flyfrugal-itineraries",
+      "source": "./flyfrugal-itineraries",
+      "description": "Browse Fly Frugal itinerary previews and current verified flight deals through a read-only MCP server.",
+      "category": "travel"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "flyfrugal-travel-data": {
+      "type": "http",
+      "url": "https://flyfrugal.fyi/mcp"
+    }
+  }
+}

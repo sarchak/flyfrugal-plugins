@@ -1,0 +1,13 @@
+{
+  "name": "flyfrugal-itineraries",
+  "displayName": "Fly Frugal Itineraries",
+  "version": "1.0.0",
+  "description": "Browse Fly Frugal itinerary previews and current verified flight deals through a read-only MCP server.",
+  "author": {
+    "name": "Fly Frugal",
+    "url": "https://flyfrugal.fyi"
+  },
+  "homepage": "https://flyfrugal.fyi/itineraries",
+  "keywords": ["travel", "itineraries", "flights", "deals", "mcp"],
+  "mcpServers": "./.mcp.json"
+}

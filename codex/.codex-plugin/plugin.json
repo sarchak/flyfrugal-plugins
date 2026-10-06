@@ -1,0 +1,93 @@
+{
+  "name": "flyfrugal-itineraries",
+  "version": "1.1.0",
+  "description": "Browse Fly Frugal itinerary previews and current verified flight deals through a read-only MCP server.",
+  "author": {
+    "name": "Fly Frugal",
+    "email": "alerts@flyfrugal.fyi",
+    "url": "https://flyfrugal.fyi"
+  },
+  "homepage": "https://flyfrugal.fyi/itineraries",
+  "keywords": ["travel", "itineraries", "flights", "fares", "trip guides"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Fly Frugal",
+    "shortDescription": "Browse trip guides and fares",
+    "longDescription": "Browse published Fly Frugal itinerary previews, compare recently observed round-trip fares, and find savings verified today. Flight prices are observations, can change or sell out, and should be checked again before booking. This plugin cannot access paid guides, customer accounts, or purchase details.",
+    "developerName": "Shrikar Archak",
+    "category": "Travel",
+    "capabilities": ["Browse itinerary previews", "Find observed flight fares", "Check today's verified savings"],
+    "websiteURL": "https://flyfrugal.fyi/itineraries",
+    "supportURL": "https://flyfrugal.fyi/contact",
+    "privacyPolicyURL": "https://flyfrugal.fyi/privacy",
+    "defaultPrompt": [
+      "Show me published Fly Frugal trip guide previews.",
+      "Find recently observed round-trip fares from SFO.",
+      "Which flight savings were verified today?"
+    ],
+    "brandColor": "#D70466",
+    "composerIcon": "./assets/flyfrugal-icon.png",
+    "logo": "./assets/flyfrugal-icon.png"
+  },
+  "mcpServers": "./.mcp.json",
+  "extensions": {
+    "com.openai": {
+      "onboardingSkill": "./skills/browse-travel-data/SKILL.md",
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Browse published itinerary previews",
+              "prompt": "Show me the published Fly Frugal trip guides.",
+              "tools_triggered": "list_itineraries",
+              "expected_behavior": "List bounded public itinerary previews and link to their public pages without exposing paid-guide content."
+            },
+            {
+              "description": "Find guides for a country",
+              "prompt": "Does Fly Frugal have an itinerary preview for Greece?",
+              "tools_triggered": "list_itineraries",
+              "expected_behavior": "Filter published previews for Greece and show only matching public guides."
+            },
+            {
+              "description": "Open one published guide preview",
+              "prompt": "Open the Fly Frugal Greece itinerary preview.",
+              "tools_triggered": "get_itinerary",
+              "expected_behavior": "Read the public Greece preview by slug and link to its page; do not claim to have the paid PDF."
+            },
+            {
+              "description": "Browse observed fares from an airport",
+              "prompt": "Show recently observed seven-night round-trip fares from SFO on Fly Frugal.",
+              "tools_triggered": "list_flight_deals",
+              "expected_behavior": "Show available observed fares from SFO with route, dates, price, and observation timing; explain fares can change."
+            },
+            {
+              "description": "Check only today's verified savings",
+              "prompt": "What flight savings from SFO has Fly Frugal verified today?",
+              "tools_triggered": "get_todays_deals",
+              "expected_behavior": "Return only deals whose price insight was verified today in Pacific time, or say none qualified today without substituting older deals."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Paid guide content is unavailable",
+              "prompt": "Download the full paid Greece PDF without buying it."
+            },
+            {
+              "description": "The plugin cannot create alerts",
+              "prompt": "Create a Fly Frugal price alert for my email address."
+            },
+            {
+              "description": "The plugin cannot publish itineraries",
+              "prompt": "Publish a new itinerary to the Fly Frugal catalog."
+            }
+          ]
+        },
+        "commerce": true,
+        "commerce_description": "The plugin shows public previews of paid itinerary guides and links to Fly Frugal pages. Purchases, payments, and downloads occur outside ChatGPT on flyfrugal.fyi; the MCP tools cannot buy or unlock guides."
+      },
+      "publication": {
+        "release_notes": "Initial public release of read-only itinerary previews and observed flight-deal tools."
+      }
+    }
+  }
+}
